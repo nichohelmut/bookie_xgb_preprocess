@@ -1,0 +1,32 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'eu.gcr.io/$PROJECT_ID/xgb-pp-ms:latest', '.' ]
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'eu.gcr.io/$PROJECT_ID/xgb-pp-ms:latest' ]
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'aa-ms'
+      - '--image'
+      - 'eu.gcr.io/$PROJECT_ID/xgb-pp-ms:latest'
+      - '--region'
+      - 'europe-west1'
+      - '--platform'
+      - 'managed'
+      - '--memory'
+      - '512Mi'
+      - '--service-account'
+      - '$_SERVICE_ACCOUNT'
+      - '--set-env-vars'
+      - 'PROJECT_ID=$PROJECT_ID'
+images:
+  - 'eu.gcr.io/$PROJECT_ID/xgb-pp-ms:latest'
+artifacts:
+  objects:
+    location: '$_ARTIFACT_STORE/xgb-pp'
+    paths: ['*']
