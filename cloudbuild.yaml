@@ -11,7 +11,7 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - 'aa-ms'
+      - 'xgb-pp-ms'
       - '--image'
       - 'eu.gcr.io/$PROJECT_ID/xgb-pp-ms:latest'
       - '--region'
