@@ -1,7 +1,7 @@
 import google.auth
 import pandas as pd
 
-from helpers import read_bigquery, write, predictable_columns, row_with_date
+from .helpers import read_bigquery, write, predictable_columns, row_with_date
 
 
 class PreProcess:
