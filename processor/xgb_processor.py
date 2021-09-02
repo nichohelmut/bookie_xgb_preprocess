@@ -16,7 +16,7 @@ class PreProcess:
         df_all.reset_index(inplace=True)
         df_all.drop('index', axis=1, inplace=True)
 
-        # df_all['attendance'][df_all['attendance'] < 0] = 0
+        df_all['attendance'][df_all['attendance'] < 0] = 0
 
         return df_all
 
