@@ -19,7 +19,7 @@ steps:
       - '--platform'
       - 'managed'
       - '--memory'
-      - '512Mi'
+      - '2Gi'
       - '--service-account'
       - '$_SERVICE_ACCOUNT'
       - '--set-env-vars'

@@ -5,4 +5,4 @@ gcloud run deploy xgb-pp-ms \
  --image gcr.io/$MY_PROJECT_ID/xgb-pp-ms:latest \
  --region europe-west1 \
  --platform managed \
- --memory 512Mi \
+ --memory 2Gi \
