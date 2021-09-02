@@ -34,7 +34,9 @@ class PreProcess:
         columns_a = list(columns.apply(lambda x: "awt_" + x))
 
         df_empty_columns = pd.DataFrame(columns=(columns_h + columns_a))
+        print("starting loading")
         df_matches_with_aa = pd.concat([self.load_clean_data(), df_empty_columns], axis=1)
+        print("finishing loading")
 
         df_matches_with_aa_complete, df_incomplete, df_complete = self.dataframe_with_train_test(df_matches_with_aa)
 
