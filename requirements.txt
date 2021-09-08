@@ -6,3 +6,4 @@ google-auth==1.32.1
 google-cloud-storage==1.42.0
 sklearn==0.0
 pyarrow>=0.4
+google==3.0.0
