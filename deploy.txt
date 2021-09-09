@@ -1,8 +1,0 @@
-docker build -t gcr.io/$MY_PROJECT_ID/xgb-pp-ms:latest .
-docker push gcr.io/$MY_PROJECT_ID/xgb-pp-ms:latest
-
-gcloud run deploy xgb-pp-ms \
- --image gcr.io/$MY_PROJECT_ID/xgb-pp-ms:latest \
- --region europe-west1 \
- --platform managed \
- --memory 2Gi \
