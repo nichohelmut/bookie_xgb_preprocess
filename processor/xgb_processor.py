@@ -7,6 +7,7 @@ from .helpers import read_bigquery, write, predictable_columns, row_with_date
 class PreProcess:
     def __init__(self):
         self.predictable_columns = predictable_columns()
+        self.credentials, self.project_id = google.auth.default()
 
     def load_clean_data(self):
         df_all = read_bigquery('germany_matches')
@@ -97,6 +98,7 @@ class PreProcess:
         df_all = self.from_dict_value_to_df(d_AVGFTAG)
         df_all.sort_index(inplace=True)
         df_all['AVGATGDIFF'].fillna(0, inplace=True)
+        write(df_all, self.project_id, 'statistics', 'df_all', self.credentials)
 
         return df_all
 
@@ -188,9 +190,8 @@ class PreProcess:
         Y = pd.DataFrame(self.results_previous_games().iloc[:len(df_complete), :]['result'], columns=['result'])
         Z = df_X.tail(9)
 
-        credentials, project_id = google.auth.default()
-
-        write(row_with_date(df_next_games_teams), project_id, 'statistics', 'pp_next_games_teams', credentials)
-        write(row_with_date(X), project_id, 'statistics', 'pp_X', credentials)
-        write(row_with_date(Y), project_id, 'statistics', 'pp_Y', credentials)
-        write(row_with_date(Z), project_id, 'statistics', 'pp_Z', credentials)
+        write(row_with_date(df_next_games_teams), self.project_id, 'statistics', 'pp_next_games_teams',
+              self.credentials)
+        write(row_with_date(X), self.project_id, 'statistics', 'pp_X', self.credentials)
+        write(row_with_date(Y), self.project_id, 'statistics', 'pp_Y', self.credentials)
+        write(row_with_date(Z), self.project_id, 'statistics', 'pp_Z', self.credentials)
