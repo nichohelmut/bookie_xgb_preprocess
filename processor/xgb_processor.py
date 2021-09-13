@@ -36,6 +36,7 @@ class PreProcess:
 
         df_empty_columns = pd.DataFrame(columns=(columns_h + columns_a))
         df_matches_with_aa = pd.concat([self.load_clean_data(), df_empty_columns], axis=1)
+        df_matches_with_aa = df_matches_with_aa.sort_values(['timestamp', 'home_team_name'], ascending=[True, True])
 
         df_matches_with_aa_complete, df_incomplete, df_complete = self.dataframe_with_train_test(df_matches_with_aa)
 
@@ -164,9 +165,8 @@ class PreProcess:
         df_last_AVGFTAG_results = self.previous_data_call(df_last_AVGFTHG_results, 'away_team_name', 'AVGATGDIFF', 'A',
                                                           2)
 
-        df_all = df_last_AVGFTAG_results.copy()
-
-        df_matches_with_aa_numeric = df_all._get_numeric_data()
+        df = df_last_AVGFTAG_results.copy()
+        df_matches_with_aa_numeric = df._get_numeric_data()
         df_matches_with_aa_numeric.drop(
             ['timestamp', 'goal_diff', 'result', 'home_team_goal_count', 'away_team_goal_count'], axis=1, inplace=True)
         df_matches_with_aa_numeric.isnull().sum(axis=0)
