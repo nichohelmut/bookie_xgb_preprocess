@@ -187,11 +187,13 @@ class PreProcess:
         df_X = self.normalize()[self.predictable_columns]
         df_X.fillna(0, inplace=True)
         X = df_X.iloc[:len(df_complete), :]
+        X['index1'] = X.index
 
         Y = pd.DataFrame(self.results_previous_games().iloc[:len(df_complete), :]['result'], columns=['result'])
         Y['index1'] = Y.index
 
         Z = df_X.tail(9)
+        Z['index1'] = Z.index
 
         write(row_with_date(df_next_games_teams), self.project_id, 'statistics', 'pp_next_games_teams',
               self.credentials)
