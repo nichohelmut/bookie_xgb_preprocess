@@ -1,5 +1,7 @@
 import google.auth
 import pandas as pd
+from google.cloud import storage
+import datetime
 
 from .helpers import read_bigquery, write, predictable_columns, row_with_date
 
@@ -179,6 +181,13 @@ class PreProcess:
                 df_matches_with_aa_numeric.max() - df_matches_with_aa_numeric.min())
 
         return df_norm
+
+    def save_to_storage(self, df, title):
+        client = storage.Client()
+        bucket = client.get_bucket("xgb_next_games_pred")
+
+        bucket.blob(f'{title}_{datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")}.csv').upload_from_string(
+            df.to_csv(index=False), 'text/csv')
 
     def data_for_predict(self):
         _, df_incomplete, df_complete = self.append_aa_result()
