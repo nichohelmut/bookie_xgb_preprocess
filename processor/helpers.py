@@ -29,7 +29,7 @@ def write(df, project_id, output_dataset_id, output_table_name, credentials):
 
 def predictable_columns():
     return [
-        'Pre_Match_PPG__Home_', 'Pre_Match_PPG__Away_', 'attendance', 'home_ppg', 'away_ppg',
+        'Pre_Match_PPG__Home_', 'Pre_Match_PPG__Away_', 'attendance',
         'average_goals_per_match_pre_match', 'btts_percentage_pre_match',
         'over_15_percentage_pre_match', 'over_25_percentage_pre_match',
         'over_35_percentage_pre_match', 'over_45_percentage_pre_match',
